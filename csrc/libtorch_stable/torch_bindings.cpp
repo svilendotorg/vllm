@@ -155,6 +155,7 @@ STABLE_TORCH_LIBRARY_FRAGMENT(_C, ops) {
       "Tensor input, Tensor input_global_scale, Tensor input_offset_by_experts,"
       "Tensor output_scale_offset_by_experts) -> ()");
 
+#ifdef ENABLE_NVFP4_SM100
   // Compute MXFP4 experts quantization (32-element blocks, E8M0 SFs).
   ops.def(
       "mxfp4_experts_quant(Tensor! output, Tensor! output_scale,"
@@ -167,6 +168,7 @@ STABLE_TORCH_LIBRARY_FRAGMENT(_C, ops) {
       "output_scale,"
       "Tensor input, Tensor input_offset_by_experts,"
       "Tensor output_scale_offset_by_experts, int n_experts) -> ()");
+#endif  // ENABLE_NVFP4_SM100
 
   // Fused SiLU+Mul+NVFP4 quantization.
   ops.def(
@@ -252,9 +254,11 @@ STABLE_TORCH_LIBRARY_IMPL(_C, CUDA, ops) {
   ops.impl("silu_and_mul_scaled_fp4_experts_quant",
            TORCH_BOX(&silu_and_mul_scaled_fp4_experts_quant));
   ops.impl("silu_and_mul_nvfp4_quant", TORCH_BOX(&silu_and_mul_nvfp4_quant));
+#ifdef ENABLE_NVFP4_SM100
   ops.impl("mxfp4_experts_quant", TORCH_BOX(&mxfp4_experts_quant));
   ops.impl("silu_and_mul_mxfp4_experts_quant",
            TORCH_BOX(&silu_and_mul_mxfp4_experts_quant));
+#endif  // ENABLE_NVFP4_SM100
 
   // W4A8 ops: impl registrations are in the source files
   // (w4a8_mm_entry.cu and w4a8_grouped_mm_entry.cu)
