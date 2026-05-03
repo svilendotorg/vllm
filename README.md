@@ -1,3 +1,8 @@
+> **🍴 Fork notice** — this is a downstream fork of [vllm-project/vllm](https://github.com/vllm-project/vllm). Default branch [`fix/marlin-w4a16-pad-sub-tile`](https://github.com/svilendotorg/vllm/tree/fix/marlin-w4a16-pad-sub-tile) cherry-picked Marlin W4A16 sub-tile output-dim padding fix (upstream PR pending).
+> See [**IMPROVEMENTS.md**](IMPROVEMENTS.md) for the full list of downstream changes and rationale.
+
+---
+
 <!-- markdownlint-disable MD001 MD041 -->
 <p align="center">
   <picture>
